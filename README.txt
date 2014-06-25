@@ -1,6 +1,16 @@
 This program is designed as an easy to use way of visualizing word frequencies in text.
 
+Installation:
+From the command line run:
+```
+//pip install SmartCloud
+```
+
 HOW TO USE:
+```
+//import SmartCloud
+```
+
 Create a Cloud object.
 
 Use the method smart_cloud() to create the word cloud of the text, file, or directory. 
