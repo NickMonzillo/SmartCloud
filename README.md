@@ -1,14 +1,17 @@
 This program is designed as an easy to use way of visualizing word frequencies in text.
 
 Installation:
+
 From the command line run:
+
 ```
-//pip install SmartCloud
+pip install SmartCloud
 ```
 
 HOW TO USE:
+
 ```
-//import SmartCloud
+import SmartCloud
 ```
 
 Create a Cloud object.
