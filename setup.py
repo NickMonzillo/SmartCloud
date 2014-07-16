@@ -4,7 +4,7 @@ setup(
     packages = ['SmartCloud'],
     author_email = 'nickmonzillo@gmail.com',
     url = 'https://github.com/NickMonzillo/SmartCloud',
-    version = '1.0.0',
+    version = '1.0.1',
     description = 'Text visualization using word frequencies.',
     author='Nick Monzillo',
     install_requires = ['Pygame'],
