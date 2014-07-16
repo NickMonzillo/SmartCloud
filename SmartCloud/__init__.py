@@ -4,8 +4,8 @@ from os.path import isdir, isfile
 from wordplay import tuplecount,separate, eliminate_repeats
 import pygame
 
-EXCLUDE_WORDS = False  #excludes words that only occur once in the text.
-                      #Reduces clutter in word cloud.
+EXCLUDE_WORDS = True  #excludes words that only occur once in the text.
+                       #Reduces clutter in word cloud.
 
 class Cloud(object):
     def __init__(self,width=500,height=500):
@@ -58,7 +58,7 @@ class Cloud(object):
             print 'Input type not supported.'
             print 'Supported types: String, Directory, .txt file'
             
-    def directory_cloud(self,directory,max_text_size=72,min_text_size=12):
+    def directory_cloud(self,directory,max_text_size=72,min_text_size=12,expand_width=50,expand_height=50,max_count=100000):
         '''Creates a word cloud using files from a directory.
         The color of the words correspond to the amount of documents the word occurs in.'''
         worddict = assign_fonts(tuplecount(read_dir(directory)),max_text_size,min_text_size)
@@ -73,18 +73,19 @@ class Cloud(object):
             elif self.height < self.word_size[1]:
                 self.expand(0,self.word_size[1]-self.height)
             position = [randint(0,self.width-self.word_size[0]),randint(0,self.height-self.word_size[1])]
+            #the initial position is determined
             loopcount = 0
             while self.collides(position,self.word_size):
-                if loopcount > 100000:
+                if loopcount > max_count:
                 #If it can't find a position for the word, create a bigger cloud.
-                    self.expand(50,50)      
+                    self.expand(expand_width,expand_height)      
                     abort_count = 0
                 position = [randint(0,self.width-self.word_size[0]),randint(0,self.height-self.word_size[1])]
                 loopcount += 1
             self.plot_word(position)
             num_words += 1
             
-    def text_cloud(self,text,max_text_size=72,min_text_size=12):
+    def text_cloud(self,text,max_text_size=72,min_text_size=12,expand_width=50,expand_height=50,max_count=100000):
         '''Creates a word cloud using plain text.'''
         worddict = assign_fonts(tuplecount(text),max_text_size,min_text_size)
         sorted_worddict = list(reversed(sorted(worddict.keys(), key=lambda x: worddict[x])))
@@ -98,9 +99,9 @@ class Cloud(object):
             position = [randint(0,self.width-self.word_size[0]),randint(0,self.height-self.word_size[1])]
             loopcount = 0
             while self.collides(position,self.word_size):
-                if loopcount > 100000:
-                #If it can't find a position for the word, expand the cloud by (100,100).
-                    self.expand(50,50)
+                if loopcount > max_count:
+                #If it can't find a position for the word, expand the cloud.
+                    self.expand(expand_width,expand_height)
                     loopcount = 0
                 position = [randint(0,self.width-self.word_size[0]),randint(0,self.height-self.word_size[1])]
                 loopcount += 1
