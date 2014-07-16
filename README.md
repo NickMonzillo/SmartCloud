@@ -14,12 +14,24 @@ HOW TO USE:
 import SmartCloud
 ```
 
-Create a Cloud object.
+Instantiate a Cloud object.
+
+```
+c = Cloud()
+```
 
 Use the method smart_cloud() to create the word cloud of the text, file, or directory. 
 max_text_size and min_text_size are the values of the highest and lowest allowable font sizes, respectively.
 
+```
+c.smart_cloud(example_dir)
+```
+
 From there, display the cloud to the screen using the display() method or create an image file using the save() method.
+
+```
+c.display()
+```
 
 Added Directory support:
 Create a word cloud from a directory of text files by using the directory_cloud() method on a Cloud object.
