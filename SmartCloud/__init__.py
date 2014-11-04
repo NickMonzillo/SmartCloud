@@ -79,7 +79,7 @@ class Cloud(object):
                 if loopcount > max_count:
                 #If it can't find a position for the word, create a bigger cloud.
                     self.expand(expand_width,expand_height)      
-                    abort_count = 0
+                    loopcount = 0
                 position = [randint(0,self.width-self.word_size[0]),randint(0,self.height-self.word_size[1])]
                 loopcount += 1
             self.plot_word(position)
