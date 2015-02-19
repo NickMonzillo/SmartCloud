@@ -41,7 +41,7 @@ The more red a word is, the more documents in the directory it occurs in.
 Examples:
 From the wikipedia article on the universe (http://en.wikipedia.org/wiki/Universe):
 
-I created the following images using the samrt_cloud method on a directory of samples from the article.
+I created the following images using the smart_cloud() method on a directory of samples from the article.
 
 ![alt tag](https://github.com/NickMonzillo/SmartCloud/blob/master/SmartCloud/media/exclude_dir.png)
 
