@@ -40,10 +40,14 @@ The more red a word is, the more documents in the directory it occurs in.
 
 Examples:
 From the wikipedia article on the universe (http://en.wikipedia.org/wiki/Universe):
+
 I created the following images using the samrt_cloud method on a directory of samples from the article.
+
 ![alt tag](https://github.com/NickMonzillo/SmartCloud/blob/master/SmartCloud/media/exclude_dir.png)
+
 This uses the EXCLUDE_WORDS variable and is how the application displays a directory.
 
 ![alt tag](https://github.com/NickMonzillo/SmartCloud/blob/master/SmartCloud/media/exclude_text.png)
+
 This image is a result of using the smart_cloud() method on a .txt file in the directory. 
 The method identifies it as a file rather than a directory and creates the visualization accordingly.
