@@ -4,9 +4,6 @@ from os.path import isdir, isfile
 from wordplay import tuplecount,separate, eliminate_repeats, read_file
 import pygame
 
-EXCLUDE_WORDS = True  #excludes words that only occur once in the text.
-                        #Reduces clutter in word cloud.
-
 class Cloud(object):
     def __init__(self,width=500,height=500):
         pygame.init()
@@ -44,9 +41,11 @@ class Cloud(object):
         temp_surface.blit(self.cloud,(0,0))
         self.cloud = temp_surface
 
-    def smart_cloud(self,input,max_text_size=72,min_text_size=12):
+    def smart_cloud(self,input,max_text_size=72,min_text_size=12,exclude_words = True):
         '''Creates a word cloud using the input.
-           Input can be a file, directory, or text.'''
+           Input can be a file, directory, or text.
+           Set exclude_words to true if you want to eliminate words that only occur once.'''
+        self.exclude_words = exclude_words
         if isdir(input):
             self.directory_cloud(input,max_text_size,min_text_size)
         elif isfile(input):
@@ -61,7 +60,7 @@ class Cloud(object):
     def directory_cloud(self,directory,max_text_size=72,min_text_size=12,expand_width=50,expand_height=50,max_count=100000):
         '''Creates a word cloud using files from a directory.
         The color of the words correspond to the amount of documents the word occurs in.'''
-        worddict = assign_fonts(tuplecount(read_dir(directory)),max_text_size,min_text_size)
+        worddict = assign_fonts(tuplecount(read_dir(directory)),max_text_size,min_text_size,self.exclude_words)
         sorted_worddict = list(reversed(sorted(worddict.keys(), key=lambda x: worddict[x])))
         colordict = assign_colors(dir_freq(directory))
         num_words = 0
@@ -87,7 +86,7 @@ class Cloud(object):
             
     def text_cloud(self,text,max_text_size=72,min_text_size=12,expand_width=50,expand_height=50,max_count=100000):
         '''Creates a word cloud using plain text.'''
-        worddict = assign_fonts(tuplecount(text),max_text_size,min_text_size)
+        worddict = assign_fonts(tuplecount(text),max_text_size,min_text_size,self.exclude_words)
         sorted_worddict = list(reversed(sorted(worddict.keys(), key=lambda x: worddict[x])))
         for word in sorted_worddict:
             self.render_word(word,worddict[word],(randint(0,255),randint(0,255),randint(0,255)))
@@ -180,11 +179,11 @@ def colorize(occurence,maxoccurence,minoccurence):
         color = (int((float(occurence)/maxoccurence*255)),0,int(float(minoccurence)/occurence*255))
     return color
 
-def assign_fonts(counts,maxsize,minsize):
+def assign_fonts(counts,maxsize,minsize,exclude_words):
     '''Defines the font size of a word in the cloud.
     Counts is a list of tuples in the form (word,count)'''
     valid_counts = []
-    if EXCLUDE_WORDS:
+    if exclude_words:
         for i in counts:
             if i[1] != 1:
                 valid_counts.append(i)
