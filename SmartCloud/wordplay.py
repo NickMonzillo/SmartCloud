@@ -12,9 +12,16 @@ def separate(text):
             standardwords.append(newstr)
     return map(lambda x: x.lower(),standardwords)
 
+def read_file(filename):
+    '''Reads in a .txt file.'''
+    with open(filename,'r') as f:
+        content = f.read()
+    return content
+
 def eliminate_repeats(text):
     '''Returns a list of words that occur in the text. Eliminates stopwords.'''
-    bannedwords = ['the','is','are','and','of','to','a','an','for','it','i','in','on','do','in','that','have','be','this','from','these','','its','he','as','you','at','but','his','by','they','we','say','her','she','or','was','will','than','which','their','there']
+    
+    bannedwords = read_file('stopwords.txt')
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     words = text.split()
     standardwords = []
@@ -30,7 +37,7 @@ def eliminate_repeats(text):
 
 def wordcount(text):
     '''Returns the count of the words in a file.'''
-    bannedwords = ['the','is','are','and','of','to','a','an','for','it','i','in','on','do','in','that','have','be','this','from','these','','its','he','as','you','at','but','his','by','they','we','say','her','she','or','was','will','than','which','their','there']
+    bannedwords = read_file('stopwords.txt')
     wordcount = {}
     separated = separate(text)
     for word in separated:
@@ -39,8 +46,6 @@ def wordcount(text):
                 wordcount[word] = 1
             else:
                 wordcount[word] += 1
-    #for w in sorted(wordcount, key=wordcount.get, reverse=True):
-        #print w + ': ' + str(wordcount[w])
     return wordcount
 
 def tuplecount(text):

@@ -1,11 +1,11 @@
 from random import randint,choice
 from os import listdir
 from os.path import isdir, isfile
-from wordplay import tuplecount,separate, eliminate_repeats
+from wordplay import tuplecount,separate, eliminate_repeats, read_file
 import pygame
 
 EXCLUDE_WORDS = True  #excludes words that only occur once in the text.
-                       #Reduces clutter in word cloud.
+                        #Reduces clutter in word cloud.
 
 class Cloud(object):
     def __init__(self,width=500,height=500):
@@ -122,12 +122,6 @@ class Cloud(object):
     def save(self,filename):
         '''Saves the cloud to a file.'''
         pygame.image.save(self.cloud,filename)
-
-def read_file(filename):
-    '''Reads in a .txt file.'''
-    with open(filename,'r') as f:
-        content = f.read()
-    return content
 
 def dir_freq(directory):
     '''Returns a list of tuples of (word,# of directories it occurs)'''
